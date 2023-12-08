@@ -1,0 +1,123 @@
+openapi: 3.0.0
+info:
+  title: Chat API
+  version: 1.0.0
+
+servers:
+  - url: https://example.com/api
+
+paths:
+  /v1/chat/completions:
+    post:
+      summary: Process a chat completion request
+      operationId: chatCompletions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExternalApiRequest'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalApiResponse'
+      security:
+        - ApiKeyAuth: []
+
+  /v1/chat/stream-completions:
+    post:
+      summary: Process a streaming chat completion request
+      operationId: streamChatCompletions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExternalApiRequest'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            text/event-stream:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SuFoCompletionStreamChunk'
+      security:
+        - ApiKeyAuth: []
+
+components:
+  schemas:
+    ExternalApiRequest:
+      type: object
+      properties:
+        corpus_name:
+          type: string
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/CgptMsg'
+        session_id:
+          type: string
+          nullable: true
+
+    ExternalApiResponse:
+      type: object
+      properties:
+        message:
+          $ref: '#/components/schemas/CgptMsg'
+        sources:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalApiSource'
+
+    ExternalApiSource:
+      type: object
+      properties:
+        title:
+          type: string
+        url:
+          type: string
+        content:
+          type: string
+
+    CgptMsg:
+      type: object
+      properties:
+        role:
+          type: string
+        content:
+          type: string
+        name:
+          type: string
+          nullable: true
+        function_call:
+          type: string
+          nullable: true
+
+    SuFoCompletionStreamChunk:
+      type: object
+      properties:
+        completion:
+          type: string
+        role:
+          type: string
+          nullable: true
+        stop_reason:
+          type: string
+          nullable: true
+        do_overwrite:
+          type: boolean
+        sources:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalApiSource'
+
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-auth-apikey

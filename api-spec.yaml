@@ -137,13 +137,12 @@ components:
           items:
             $ref: '#/components/schemas/ExternalApiSource'
           description: A list of sources that the chatbot is using to generate this completion. Each source is only sent once.
-
-
-securitySchemes:
-  ApiKeyAuth:
-    type: apiKey
-    in: header
-    name: x-auth-apikey
-    description: |
-      The SuperFocus API uses API keys to authenticate requests. We will send you an API key when you are ready to interact with the SuperFocus API. All API requests should include your API key in an `x-auth-apikey` HTTP header.
+  
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-auth-apikey
+      description: |
+        The SuperFocus API uses API keys to authenticate requests. We will send you an API key when you are ready to interact with the SuperFocus API. All API requests should include your API key in an `x-auth-apikey` HTTP header.
 

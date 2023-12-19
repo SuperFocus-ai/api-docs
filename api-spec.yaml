@@ -125,4 +125,4 @@ components:
     in: header
     name: x-auth-apikey
     description: |
-      The SuperFocus API uses API keys to authenticate requests. You can find your API key on your dashboard, and it should be used as the x-auth-apikey header in each request.
+      The SuperFocus API uses API keys to authenticate requests. We will send you an API key when you are ready to interact with the SuperFocus API. All API requests should include your API key in an `X-AUTH-APIKEY` HTTP header.

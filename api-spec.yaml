@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   title: Chat API
   description: |
-    The SuperFocus API is organized around REST. This API allows you to engage in conversational experiences with advanced completion and streaming capabilities. Please authenticate your requests with an API key, which you will receive upon registration.
+    The SuperFocus API is organized around REST. It allows you to interact with a chatbot with access to corpuses of documents you have provided to us. Both unary completions and streaming are supported. Please authenticate your requests with an API key, which you will receive from us.
   version: 1.0.0
 
 servers:

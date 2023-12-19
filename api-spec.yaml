@@ -144,4 +144,6 @@ securitySchemes:
     type: apiKey
     in: header
     name: x-auth-apikey
-    description: The SuperFocus API uses API keys to authenticate requests. We will send you an API key when you are ready to interact with the SuperFocus API. All API requests should include your API key in an `x-auth-apikey` HTTP header.
+    description: |
+      The SuperFocus API uses API keys to authenticate requests. We will send you an API key when you are ready to interact with the SuperFocus API. All API requests should include your API key in an `x-auth-apikey` HTTP header.
+

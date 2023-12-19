@@ -67,6 +67,7 @@ components:
               $ref: '#/components/schemas/CgptMsg'
             description: A list of messages comprising the conversation so far, from oldest to newest.
           session_id:
+            description: This allows us to keep track of your session internally, for debugging purposes. You can set this to any string you want, and it is not necessary to include it.
             type: string
             nullable: true
     ExternalApiResponse:
@@ -81,12 +82,17 @@ components:
 
     ExternalApiSource:
       type: object
+      description: A source that the chatbot is using to generate this completion. Typically, either raw text, or a URL to a PDF.
       properties:
         title:
           type: string
+          description: The title of the source
         url:
           type: string
+          description: The URL of the source, if there is one
+          nullable: true
         content:
+          description: The text of the source, is there is one
           type: string
 
     CgptMsg:
@@ -94,29 +100,29 @@ components:
       properties:
         role:
           type: string
+          description: The role of the speaker of this message. This should be either "user" or "assistant" 
         content:
           type: string
-        name:
-          type: string
-          nullable: true
-        function_call:
-          type: string
-          nullable: true
+          description: The content of the message
 
     SuFoCompletionStreamChunk:
       type: object
       properties:
         completion:
           type: string
+          description: The next chunk of text from the chatbot
         role:
           type: string
+          description: Either "user" or "assistant" or not set. For example, the first chunk might be "assistant", and then every message after that is assumed to still be from the assistant.
           nullable: true
         stop_reason:
           type: string
           nullable: true
         do_overwrite:
           type: boolean
+          description: If true, you should overwrite the current message in the chat history with this. Otherwise, append the chunk to the current message.
         sources:
+          description: A list of sources that the chatbot is using to generate this completion. Each source is only sent once.
           type: array
           items:
             $ref: '#/components/schemas/ExternalApiSource'

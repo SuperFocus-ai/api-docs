@@ -54,18 +54,19 @@ paths:
 components:
   schemas:
     ExternalApiRequest:
-      type: object
-      properties:
-        corpus_name:
-          type: string
-        messages:
-          type: array
-          items:
-            $ref: '#/components/schemas/CgptMsg'
-        session_id:
-          type: string
-          nullable: true
-
+        type: object
+        properties:
+          corpus_name:
+            type: string
+            description: The name of the corpus of data that you want to query.
+          messages:
+            type: array
+            items:
+              $ref: '#/components/schemas/CgptMsg'
+            description: A list of messages comprising the conversation so far, from oldest to newest.
+          session_id:
+            type: string
+            nullable: true
     ExternalApiResponse:
       type: object
       properties:

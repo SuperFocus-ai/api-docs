@@ -12,6 +12,7 @@ paths:
   /v1/chat/completions:
     post:
       summary: Process a chat completion request
+      description: This endpoint allows you to submit a chat history, and receive the next message from the chatbot.
       operationId: chatCompletions
       requestBody:
         required: true
@@ -32,6 +33,7 @@ paths:
   /v1/chat/stream-completions:
     post:
       summary: Process a streaming chat completion request
+      description: Submit a chat history to this endpoint, and get back a stream of completions via Server-Sent Events that represent the next message. This is useful when latency is important for the user's experiance.
       operationId: streamChatCompletions
       requestBody:
         required: true
@@ -124,5 +126,4 @@ components:
     type: apiKey
     in: header
     name: x-auth-apikey
-    description: |
-      The SuperFocus API uses API keys to authenticate requests. We will send you an API key when you are ready to interact with the SuperFocus API. All API requests should include your API key in an `X-AUTH-APIKEY` HTTP header.
+    description: The SuperFocus API uses API keys to authenticate requests. We will send you an API key when you are ready to interact with the SuperFocus API. All API requests should include your API key in an `x-auth-apikey` HTTP header.

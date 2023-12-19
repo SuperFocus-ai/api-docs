@@ -1,6 +1,8 @@
 openapi: 3.0.0
 info:
   title: Chat API
+  description: |
+    The SuperFocus API is organized around REST. This API allows you to engage in conversational experiences with advanced completion and streaming capabilities. Please authenticate your requests with an API key, which you will receive upon registration.
   version: 1.0.0
 
 servers:
@@ -117,7 +119,9 @@ components:
             $ref: '#/components/schemas/ExternalApiSource'
 
   securitySchemes:
-    ApiKeyAuth:
-      type: apiKey
-      in: header
-      name: x-auth-apikey
+  ApiKeyAuth:
+    type: apiKey
+    in: header
+    name: x-auth-apikey
+    description: |
+      The SuperFocus API uses API keys to authenticate requests. You can find your API key on your dashboard, and it should be used as the x-auth-apikey header in each request.

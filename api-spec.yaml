@@ -121,7 +121,7 @@ components:
           items:
             $ref: '#/components/schemas/ExternalApiSource'
 
-  securitySchemes:
+securitySchemes:
   ApiKeyAuth:
     type: apiKey
     in: header

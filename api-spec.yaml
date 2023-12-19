@@ -56,20 +56,21 @@ paths:
 components:
   schemas:
     ExternalApiRequest:
-        type: object
-        properties:
-          corpus_name:
-            type: string
-            description: The name of the corpus of data that you want to query.
-          messages:
-            type: array
-            items:
-              $ref: '#/components/schemas/CgptMsg'
-            description: A list of messages comprising the conversation so far, from oldest to newest.
-          session_id:
-            description: This allows us to keep track of your session internally, for debugging purposes. You can set this to any string you want, and it is not necessary to include it.
-            type: string
-            nullable: true
+      type: object
+      properties:
+        corpus_name:
+          type: string
+          description: The name of the corpus of data that you want to query. SuperFocus will provide this value to you.
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/CgptMsg'
+          description: A list of messages comprising the conversation so far, from oldest to newest. The last entry in the list should be the new message from the user.
+        session_id:
+          type: string
+          nullable: true
+          description: This allows us to keep track of your session internally, for debugging purposes. You can set this to any string you want, and it is not necessary to include it in your requests.
+
     ExternalApiResponse:
       type: object
       properties:
@@ -79,6 +80,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ExternalApiSource'
+          description: A list of sources that the chatbot used to generate this completion.
 
     ExternalApiSource:
       type: object
@@ -86,46 +88,56 @@ components:
       properties:
         title:
           type: string
-          description: The title of the source
+          description: The title of the source.
         url:
           type: string
-          description: The URL of the source, if there is one
           nullable: true
+          description: The URL of the source, if there is one.
         content:
-          description: The text of the source, is there is one
           type: string
+          description: The text of the source, if there is one.
 
     CgptMsg:
       type: object
       properties:
         role:
           type: string
-          description: The role of the speaker of this message. This should be either "user" or "assistant" 
+          description: The role of the speaker of this message. This should be either "user" or "assistant".
         content:
           type: string
-          description: The content of the message
+          description: The content of the message.
+        name:
+          type: string
+          nullable: true
+          description: The name associated with the message, if applicable.
+        function_call:
+          type: string
+          nullable: true
+          description: A specific function call related to the message, if applicable.
 
     SuFoCompletionStreamChunk:
       type: object
       properties:
         completion:
           type: string
-          description: The next chunk of text from the chatbot
+          description: The next chunk of text from the chatbot.
         role:
           type: string
-          description: Either "user" or "assistant" or not set. For example, the first chunk might be "assistant", and then every message after that is assumed to still be from the assistant.
           nullable: true
+          description: Either "user" or "assistant" or not set. For example, the first chunk might be "assistant", and then every message after that is assumed to still be from the assistant.
         stop_reason:
           type: string
           nullable: true
+          description: The reason why the chatbot decided to stop generating more text.
         do_overwrite:
           type: boolean
           description: If true, you should overwrite the current message in the chat history with this. Otherwise, append the chunk to the current message.
         sources:
-          description: A list of sources that the chatbot is using to generate this completion. Each source is only sent once.
           type: array
           items:
             $ref: '#/components/schemas/ExternalApiSource'
+          description: A list of sources that the chatbot is using to generate this completion. Each source is only sent once.
+
 
 securitySchemes:
   ApiKeyAuth:

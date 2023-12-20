@@ -6,7 +6,7 @@ info:
   version: 1.0.0
 
 servers:
-  - url: https://rust-api-backend-33eo7kltwq-uw.a.run.app
+  - url: https://api.superfocus.ai
 
 paths:
   /v1/chat/completions:
